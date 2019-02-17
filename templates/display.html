@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+			<div class="card text-center" style="margin-top: 20px">
+			  <div class="card-header">
+			    <ul class="nav nav-pills card-header-pills">
+			      <li class="nav-item">
+			        <a class="nav-link " href="#">Home</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link disabled" href="#">Profile</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link disabled" href="#">Contacts</a>
+			      </li>
+			    </ul>
+			  </div>
+			  <div class="card-body">
+			    <h5 class="card-title"><p class="display-4">Hello, {{ user.username }}</p></h5>
+			    <p class="card-text">You are now logged in using google Oauth 2.0.</p>
+			    <table class="table table-bordered">
+             	<thead>
+             		<tr><th>List of users</th>
+             			<th>Keep/Remove</th>
+             		</tr>
+             	</thead>
+             	<tbody>
+             		{% for k in key%}
+             		<tr><th>{{k.first_name}}</th>
+             			<th><a class="lead" href="/delete/{{ k }}">Delete</a></th></tr>
+             		{% endfor %}
+             	</tbody>
+             </table>
+			    <a class="lead btn btn-primary" href="{% url 'logout' %}">Logout</a>
+			  </div>
+			</div>
+             
+             
+	{% else %}
+             <a class="lead" href="{% url 'login' %}">Log in</a>
+	{% endif %}
+<script type="text/javascript">
+$.ajax({
+        type: "GET",
+        url: "/home", 
+        data: {'name': 'me', 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+        success : function(data) {
+             $('.row.replace').html(data);
+         }
+});
+</script>
+
+{% endblock content %}

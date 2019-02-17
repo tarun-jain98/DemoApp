@@ -1,0 +1,21 @@
+
+
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+	<div class="card text-center" style="margin-top:100px;margin-right:300px;margin-left:300px;">
+  <div class="card-body">
+    <h2 class="card-title">Login</h2>
+    <p class="card-text">Click below button to login using google.</p>
+    <a  class="btn btn-primary" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+  </div>
+  <div class="card-footer text-muted">
+    Demo app
+  </div>
+</div>
+	
+  
+  
+{% endblock %}
